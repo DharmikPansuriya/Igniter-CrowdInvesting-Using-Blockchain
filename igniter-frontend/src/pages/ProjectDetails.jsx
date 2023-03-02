@@ -78,7 +78,7 @@ const ProjectDetails = () => {
             </div>
           </div>
           <div>
-            <h4 className="font-epilogue font-semibold text-[18px] text-[#8c6dfd] uppercase">
+            <h4 className="font-epilogue font-semibold text-[18px] text-white uppercase">
               Founder
             </h4>
 
@@ -91,7 +91,7 @@ const ProjectDetails = () => {
                 />
               </div>
               <div>
-                <h4 className="font-epilogue font-semibold text-[14px] text-white break-all">
+                <h4 className="font-epilogue font-semibold text-[14px] text-[#85859e] break-all">
                   {state.founder}
                 </h4>
               </div>
@@ -99,19 +99,19 @@ const ProjectDetails = () => {
           </div>
 
           <div>
-            <h4 className="font-epilogue font-semibold text-[18px] text-[#8c6dfd] uppercase">
+            <h4 className="font-epilogue font-semibold text-[18px] text-white uppercase">
               Story
             </h4>
 
             <div className="mt-[20px]">
-              <p className="font-epilogue font-normal text-[16px] text-white leading-[26px] text-justify">
+              <p className="font-epilogue font-normal text-[16px] text-[#85859e] leading-[26px] text-justify">
                 {state.description}
               </p>
             </div>
           </div>
 
           <div>
-            <h4 className="font-epilogue font-semibold text-[18px] text-[#8c6dfd] uppercase">
+            <h4 className="font-epilogue font-semibold text-[18px] text-white uppercase">
               Investors
             </h4>
 
@@ -122,16 +122,16 @@ const ProjectDetails = () => {
                     key={`${item.investor}-${index}`}
                     className="flex justify-between items-center gap-4"
                   >
-                    <p className="font-epilogue font-normal text-[16px] text-white leading-[26px] break-ll">
+                    <p className="font-epilogue font-normal text-[16px] text-[#85859e] leading-[26px] break-ll">
                       {index + 1}. {item.investor}
                     </p>
-                    <p className="font-epilogue font-normal text-[16px] text-white leading-[26px] break-ll">
+                    <p className="font-epilogue font-normal text-[16px] text-[#85859e] leading-[26px] break-ll">
                       {item.investment}
                     </p>
                   </div>
                 ))
               ) : (
-                <p className="font-epilogue font-normal text-[16px] text-white leading-[26px] text-justify">
+                <p className="font-epilogue font-normal text-[16px] text-[#85859e] leading-[26px] text-justify">
                   No investors yet. Be the first one!
                 </p>
               )}
@@ -140,7 +140,7 @@ const ProjectDetails = () => {
         </div>
 
         <div className="flex-1">
-          <h4 className="font-epilogue font-semibold text-[18px] text-[#8c6dfd] uppercase">
+          <h4 className="font-epilogue font-semibold text-[18px] text-white uppercase">
             Invest
           </h4>
 
@@ -160,17 +160,13 @@ const ProjectDetails = () => {
 
               <div className="my-[20px] p-4 bg-[#13131a] rounded-[10px]">
                 <h4 className="font-epilogue font-semibold text-[14px] leading-[22px] text-white">
-                  Back it because you believe in it.
+                  Note: Coin will be debited from connected metamask wallet.
                 </h4>
-                <p className="mt-[20px] font-epilogue font-normal leading-[22px] text-[#808191]">
-                  Support the project for no reward, just because it speaks to
-                  you.
-                </p>
               </div>
 
               <CustomButton
                 btnType="button"
-                title="Fund Project"
+                title="Make the transaction"
                 styles="w-full bg-[#8c6dfd]"
                 handleClick={handleInvest}
               />
