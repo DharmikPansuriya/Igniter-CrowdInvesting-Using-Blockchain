@@ -1,14 +1,14 @@
 import React from "react";
 import { useNavigate } from "react-router-dom";
 
-import FundCard from "./FundCard";
+import InvestCard from "./InvestCard";
 import { loader } from "../assets";
 
-const DisplayCampaigns = ({ title, isLoading, campaigns }) => {
+const DisplayProjects = ({ title, isLoading, projects }) => {
   const navigate = useNavigate();
 
-  const handleNavigate = (campaign) => {
-    navigate(`/campaign-details/${campaign.title}`, { state: campaign });
+  const handleNavigate = (project) => {
+    navigate(`/project-details/${project.title}`, { state: project });
   };
 
   return (
@@ -31,7 +31,7 @@ const DisplayCampaigns = ({ title, isLoading, campaigns }) => {
       )}
 
       <h1 className="font-epilogue font-semibold text-[18px] text-white text-left">
-        {title} ({campaigns.length})
+        {title} ({projects.length})
       </h1>
 
       <div className="flex flex-wrap mt-[20px] mb-[100px] gap-[26px]">
@@ -43,19 +43,19 @@ const DisplayCampaigns = ({ title, isLoading, campaigns }) => {
           />
         )}
 
-        {!isLoading && campaigns.length === 0 && (
+        {!isLoading && projects.length === 0 && (
           <p className="font-epilogue font-semibold text-[14px] leading-[30px] text-[#818183]">
             You have not created any campigns yet
           </p>
         )}
 
         {!isLoading &&
-          campaigns.length > 0 &&
-          campaigns.map((campaign) => (
-            <FundCard
-              key={campaign.id}
-              {...campaign}
-              handleClick={() => handleNavigate(campaign)}
+          projects.length > 0 &&
+          projects.map((project) => (
+            <InvestCard
+              key={project.id}
+              {...project}
+              handleClick={() => handleNavigate(project)}
             />
           ))}
       </div>
@@ -63,4 +63,4 @@ const DisplayCampaigns = ({ title, isLoading, campaigns }) => {
   );
 };
 
-export default DisplayCampaigns;
+export default DisplayProjects;

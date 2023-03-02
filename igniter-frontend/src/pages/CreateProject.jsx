@@ -7,7 +7,7 @@ import { money } from "../assets";
 import { CustomButton, FormField, Loader } from "../components";
 import { checkIfImage } from "../utils";
 
-const CreateCampaign = () => {
+const CreateProject = () => {
   const navigate = useNavigate();
   const [isLoading, setIsLoading] = useState(false);
   const { createProject } = useStateContext();
@@ -48,7 +48,7 @@ const CreateCampaign = () => {
       {isLoading && <Loader />}
       <div className="flex justify-center items-center p-[12px] sm:min-w-[380px] bg-[#3a3a43] rounded-[10px]">
         <h1 className="font-epilogue font-bold sm:text-[25px] text-[18px] leading-[38px] text-white">
-          Start a Campaign
+          Start a Project
         </h1>
       </div>
 
@@ -65,7 +65,7 @@ const CreateCampaign = () => {
             handleChange={(e) => handleFormFieldChange("name", e)}
           />
           <FormField
-            labelName="Campaign Title *"
+            labelName="Project Title *"
             placeholder="Write a title"
             inputType="text"
             value={form.title}
@@ -110,8 +110,8 @@ const CreateCampaign = () => {
         </div>
 
         <FormField
-          labelName="Campaign image *"
-          placeholder="Place image URL of your campaign"
+          labelName="Project image *"
+          placeholder="Place image URL of your project"
           inputType="url"
           value={form.image}
           handleChange={(e) => handleFormFieldChange("image", e)}
@@ -120,7 +120,7 @@ const CreateCampaign = () => {
         <div className="flex justify-center items-center mt-[40px]">
           <CustomButton
             btnType="submit"
-            title="Submit new campaign"
+            title="Submit new project"
             styles="bg-[#8c6dfd]"
           />
         </div>
@@ -129,4 +129,4 @@ const CreateCampaign = () => {
   );
 };
 
-export default CreateCampaign;
+export default CreateProject;

@@ -35,19 +35,19 @@ const Navbar = () => {
     <div className="flex md:flex-row flex-col align-center items-center justify-between mb-[35px] gap-6">
       <div className="flex justify-center flex-row">
         <Link to="/">
-        <p className="font-epilogue font-extrabold align-center items-center text-[24px] text-[#8c6dfd] break-all">
-          IGNITER
-        </p>
+          <p className="font-epilogue font-extrabold align-center items-center text-[24px] text-[#8c6dfd] break-all">
+            IGNITER
+          </p>
         </Link>
       </div>
 
       <div className="flex flex-row justify-center">
         <CustomButton
           btnType="button"
-          title={address ? "Create a campaign" : "Connect Wallet"}
+          title={address ? "Create a project" : "Connect Wallet"}
           styles={address ? "bg-[#8c6dfd]" : "bg-[#8c6dfd]"}
           handleClick={() => {
-            if (address) navigate("create-campaign");
+            if (address) navigate("create-project");
             else connect();
           }}
         />

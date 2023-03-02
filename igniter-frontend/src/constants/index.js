@@ -1,6 +1,6 @@
 import {
   home,
-  createCampaign,
+  createProject,
   dashboard,
   logout,
   payment,
@@ -15,9 +15,9 @@ export const navlinks = [
     link: "/",
   },
   {
-    name: "Campaign",
-    imgUrl: createCampaign,
-    link: "/create-campaign",
+    name: "Project",
+    imgUrl: createProject,
+    link: "/create-project",
   },
   // {
   //   name: "payment",

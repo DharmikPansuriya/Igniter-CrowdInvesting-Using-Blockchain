@@ -23,7 +23,7 @@ export const StateContextProvider = ({ children }) => {
   const address = useAddress();
   const connect = useMetamask();
 
-  const publishCampaign = async (form) => {
+  const publishProject = async (form) => {
     console.log(form);
     try {
       const data = await createProject([
@@ -42,33 +42,33 @@ export const StateContextProvider = ({ children }) => {
   };
 
   const getProjects = async () => {
-    const campaigns = await contract.call("getProjects");
+    const projects = await contract.call("getProjects");
 
-    const parsedCampaings = campaigns.map((campaign, i) => ({
-      founder: campaign.founder,
-      title: campaign.title,
-      description: campaign.description,
-      goal: ethers.utils.formatEther(campaign.goal.toString()),
-      deadline: campaign.deadline.toNumber(),
-      balance: ethers.utils.formatEther(campaign.balance.toString()),
-      image: campaign.image,
+    const parsedCampaings = projects.map((project, i) => ({
+      founder: project.founder,
+      title: project.title,
+      description: project.description,
+      goal: ethers.utils.formatEther(project.goal.toString()),
+      deadline: project.deadline.toNumber(),
+      balance: ethers.utils.formatEther(project.balance.toString()),
+      image: project.image,
       pId: i,
     }));
 
     return parsedCampaings;
   };
 
-  const getUserCampaigns = async () => {
-    const allCampaigns = await getProjects();
+  const getUserProjects = async () => {
+    const allProjects = await getProjects();
 
-    const filteredCampaigns = allCampaigns.filter(
-      (campaign) => campaign.founder === address
+    const filteredProjects = allProjects.filter(
+      (project) => project.founder === address
     );
 
-    return filteredCampaigns;
+    return filteredProjects;
   };
 
-  const donate = async (pId, amount) => {
+  const invest = async (pId, amount) => {
     const data = await contract.call("investToProject", pId, {
       value: ethers.utils.parseEther(amount),
     });
@@ -76,20 +76,20 @@ export const StateContextProvider = ({ children }) => {
     return data;
   };
 
-  const getDonations = async (pId) => {
-    const donations = await contract.call("getInvestors", pId);
-    const numberOfDonations = donations[0].length;
+  const getInvestments = async (pId) => {
+    const investments = await contract.call("getInvestors", pId);
+    const numberOfInvestments = investments[0].length;
 
-    const parsedDonations = [];
+    const parsedInvestments = [];
 
-    for (let i = 0; i < numberOfDonations; i++) {
-      parsedDonations.push({
-        donator: donations[0][i],
-        donation: ethers.utils.formatEther(donations[1][i].toString()),
+    for (let i = 0; i < numberOfInvestments; i++) {
+      parsedInvestments.push({
+        investor: investments[0][i],
+        investment: ethers.utils.formatEther(investments[1][i].toString()),
       });
     }
 
-    return parsedDonations;
+    return parsedInvestments;
   };
 
   return (
@@ -98,11 +98,11 @@ export const StateContextProvider = ({ children }) => {
         address,
         contract,
         connect,
-        createProject: publishCampaign,
+        createProject: publishProject,
         getProjects,
-        getUserCampaigns,
-        donate,
-        getDonations,
+        getUserProjects,
+        invest,
+        getInvestments,
       }}
     >
       {children}
