@@ -60,8 +60,20 @@ const ProjectDetails = () => {
         </div>
 
         <div className="flex md:w-[150px] w-full flex-wrap justify-between gap-[30px]">
-          <CountBox title="Days Left" value={remainingDays} />
-          <CountBox title={`Raised of ${state.goal}`} value={state.balance} />
+          {remainingDays > 0 ? (
+            <CountBox title="Days Left" value={remainingDays} />
+          ) : (
+            <CountBox title="Days Ago" value={remainingDays * -1} />
+          )}
+          {remainingDays > 0 ? (
+            <CountBox title={`Raised of ${state.goal}`} value={state.balance} />
+          ) : (
+            <CountBox
+              title="Goal Achieved"
+              value={(state.balance * 100) / state.goal}
+            />
+          )}
+
           <CountBox title="Total Backers" value={investors.length} />
         </div>
       </div>
@@ -120,10 +132,13 @@ const ProjectDetails = () => {
                 investors.map((item, index) => (
                   <div
                     key={`${item.investor}-${index}`}
-                    className="flex justify-between items-center gap-4"
+                    className="flex justify-left items-center gap-10"
                   >
                     <p className="font-epilogue font-normal text-[16px] text-[#85859e] leading-[26px] break-ll">
                       {index + 1}. {item.investor}
+                    </p>
+                    <p className="font-epilogue font-normal text-[16px] text-[#85859e] leading-[26px] break-ll">
+                      {" - "}
                     </p>
                     <p className="font-epilogue font-normal text-[16px] text-[#85859e] leading-[26px] break-ll">
                       {item.investment}
@@ -139,7 +154,7 @@ const ProjectDetails = () => {
           </div>
         </div>
 
-        <div className="flex-1">
+        {remainingDays > 0 && (<div className="flex-1">
           <h4 className="font-epilogue font-semibold text-[18px] text-white uppercase">
             Invest
           </h4>
@@ -172,7 +187,7 @@ const ProjectDetails = () => {
               />
             </div>
           </div>
-        </div>
+        </div>)}
       </div>
     </div>
   );

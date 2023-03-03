@@ -5,15 +5,33 @@ import { useStateContext } from "../context";
 
 const Profile = () => {
   const [isLoading, setIsLoading] = useState(false);
-  const [projects, setProjects] = useState([]);
+  const [liveProjects, setLiveProjects] = useState([]);
+  const [archivedProjects, setArchivedProjects] = useState([]);
 
   const { address, contract, getUserProjects } = useStateContext();
 
   const fetchProjects = async () => {
     setIsLoading(true);
     const data = await getUserProjects();
-    setProjects(data);
+    if (data) {
+      filterLiveAndArchivedProjects(data);
+    }
     setIsLoading(false);
+  };
+
+  const filterLiveAndArchivedProjects = (data) => {
+    const archivedProjectsArray = [];
+    const liveProjectsArray = [];
+    console.log(data);
+    data.forEach((project) => {
+      if (project.deadline < Date.now()) {
+        archivedProjectsArray.push(project);
+      } else {
+        liveProjectsArray.push(project);
+      }
+    });
+    setLiveProjects(liveProjectsArray);
+    setArchivedProjects(archivedProjectsArray);
   };
 
   useEffect(() => {
@@ -21,11 +39,18 @@ const Profile = () => {
   }, [address, contract]);
 
   return (
-    <DisplayProjects
-      title="My Projects"
-      isLoading={isLoading}
-      projects={projects}
-    />
+    <div>
+      <DisplayProjects
+        title="My Live Projects"
+        isLoading={isLoading}
+        projects={liveProjects}
+      />
+      <DisplayProjects
+        title="My Archived Projects"
+        isLoading={isLoading}
+        projects={archivedProjects}
+      />
+    </div>
   );
 };
 
