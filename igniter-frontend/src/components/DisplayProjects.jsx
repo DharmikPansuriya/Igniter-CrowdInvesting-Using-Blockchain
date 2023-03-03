@@ -13,10 +13,10 @@ const DisplayProjects = ({ title, isLoading, projects }) => {
 
   return (
     <div>
-      {title === "All Projects" && (
+      {title === "Live Projects" && (
         <div className="flex flex-col justify-left items-left my-[80px]">
           <div>
-            <h1 className="font-epilogue font-semibold lg:text-[40px] sm:text-[32px] text-white text-left text-[#8c6dfd]">
+            <h1 className="font-epilogue font-semibold lg:text-[40px] sm:text-[32px] text-left text-[#8c6dfd]">
               Welcome onboard 🚀
             </h1>
           </div>
@@ -30,7 +30,20 @@ const DisplayProjects = ({ title, isLoading, projects }) => {
         </div>
       )}
 
-      <h1 className="font-epilogue font-semibold text-[18px] text-white text-left">
+      <h1 className="flex flex-row items-center font-epilogue font-semibold text-[18px] text-white text-left">
+        <div
+          className={`ml-0 mr-3 w-[10px] h-[10px] 
+          ${
+            (title === "Live Projects" || title === "My Live Projects") &&
+            "bg-[#00FF00]"
+          } 
+          ${
+            (title === "Archived Projects" ||
+              title === "My Archived Projects") &&
+            "bg-[#FF0000]"
+          } 
+          rounded-full`}
+        ></div>
         {title} ({projects.length})
       </h1>
 
@@ -45,7 +58,7 @@ const DisplayProjects = ({ title, isLoading, projects }) => {
 
         {!isLoading && projects.length === 0 && (
           <p className="font-epilogue font-semibold text-[14px] leading-[30px] text-[#818183]">
-            You have not created any campigns yet
+            You have not created any project yet
           </p>
         )}
 

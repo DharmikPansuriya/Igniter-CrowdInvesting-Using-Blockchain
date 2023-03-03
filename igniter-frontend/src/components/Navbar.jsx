@@ -29,7 +29,7 @@ const Icon = ({ styles, name, imgUrl, isActive, disabled, handleClick }) => (
 
 const Navbar = () => {
   const navigate = useNavigate();
-  const { connect, address } = useStateContext();
+  const { connect, address, disconnectWallet } = useStateContext();
 
   return (
     <div className="flex md:flex-row flex-col align-center items-center justify-between mb-[35px] gap-6">
@@ -41,16 +41,28 @@ const Navbar = () => {
         </Link>
       </div>
 
-      <div className="flex flex-row justify-center">
-        <CustomButton
-          btnType="button"
-          title={address ? "Create a project" : "Connect Wallet"}
-          styles={address ? "bg-[#8c6dfd]" : "bg-[#8c6dfd]"}
-          handleClick={() => {
-            if (address) navigate("create-project");
-            else connect();
-          }}
-        />
+      <div className="flex flex-row justify-center gap-6">
+        {address && (<div className="flex flex-row justify-center">
+          <CustomButton
+            btnType="button"
+            title={"Create a project"}
+            styles={"bg-[#8c6dfd]"}
+            handleClick={() => {
+              if (address) navigate("create-project");
+            }}
+          />
+        </div>)}
+        <div className="flex flex-row justify-center">
+          <CustomButton
+            btnType="button"
+            title={address ? "Disconnect Metamask" : "Connect Metamask"}
+            styles={address ? "bg-[#8c6dfd]" : "bg-[#8c6dfd]"}
+            handleClick={() => {
+              if (address) disconnectWallet();
+              else connect();
+            }}
+          />
+        </div>
       </div>
     </div>
   );
