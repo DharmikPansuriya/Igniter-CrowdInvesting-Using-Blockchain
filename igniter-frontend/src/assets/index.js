@@ -1,7 +1,6 @@
 import createProject from "./create-project.svg";
 import home from "./home.svg";
 import dashboard from "./dashboard.svg";
-import igniterlogo from "./igniterlogo.png";
 import igniterFavicon from "./igniter-favicon.png";
 import logo from "./logo.svg";
 import logout from "./logout.svg";
@@ -20,7 +19,6 @@ export {
   tagType,
   createProject,
   home,
-  igniterlogo,
   igniterFavicon,
   dashboard,
   logo,
