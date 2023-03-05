@@ -1,13 +1,12 @@
 import React, { useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { ethers } from "ethers";
-
 import { useStateContext } from "../context";
-import { money } from "../assets";
 import { CustomButton, FormField, Loader } from "../components";
 import { checkIfImage } from "../utils";
 
 const CreateProject = () => {
+  // Below  hook is used for navigation
   const navigate = useNavigate();
   const [isLoading, setIsLoading] = useState(false);
   const { createProject, address, connect } = useStateContext();
@@ -20,14 +19,18 @@ const CreateProject = () => {
     image: "",
   });
 
+  // This function handle the form change value. Whenever user changes the value in form, it will be triggered.
   const handleFormFieldChange = (fieldName, e) => {
     setForm({ ...form, [fieldName]: e.target.value });
   };
 
+  // This function handles the submit request of user. It will intrect will smart contract via context/index.jsx file
   const handleSubmit = async (e) => {
     e.preventDefault();
 
+    // Check if image url is valid or not
     checkIfImage(form.image, async (exists) => {
+      // If valid then  process the request
       if (exists) {
         setIsLoading(true);
         await createProject({
@@ -36,7 +39,9 @@ const CreateProject = () => {
         });
         setIsLoading(false);
         navigate("/");
-      } else {
+      } 
+      // If not valid then give alert message
+      else {
         alert("Provide valid image URL");
         setForm({ ...form, image: "" });
       }
@@ -44,19 +49,23 @@ const CreateProject = () => {
   };
 
   return (
+    // Main div tag
     <div className="bg-[#1c1c24] flex justify-center items-center flex-col rounded-[10px] py-20 sm:p-100 p-40">
       {isLoading && <Loader />}
+      {/* This will create title in top of the form */}
       <div className="flex justify-center items-center p-[12px] sm:min-w-[380px] bg-[#3a3a43] rounded-[10px]">
         <h1 className="font-epilogue font-bold sm:text-[25px] text-[18px] leading-[38px] text-[#8c6dfd]">
           List your dream startup!
         </h1>
       </div>
 
+      {/*This is form, where user can enter their startup details */}
       <form
         onSubmit={handleSubmit}
         className="w-full mt-[65px] flex flex-col gap-[30px]"
       >
         <div className="flex flex-wrap gap-[40px]">
+          {/* Name of user */}
           <FormField
             labelName="Your Name *"
             placeholder="John"
@@ -64,6 +73,7 @@ const CreateProject = () => {
             value={form.name}
             handleChange={(e) => handleFormFieldChange("name", e)}
           />
+          {/* Project Title */}
           <FormField
             labelName="Project Title *"
             placeholder="Give a short title"
@@ -71,6 +81,7 @@ const CreateProject = () => {
             value={form.title}
             handleChange={(e) => handleFormFieldChange("title", e)}
           />
+          {/* URL of image */}
           <FormField
             labelName="Project image *"
             placeholder="Place image URL of your project"
@@ -80,6 +91,7 @@ const CreateProject = () => {
           />
         </div>
 
+        {/* In detail story/background of startup */}
         <FormField
           labelName="Story/background *"
           placeholder="Write your story"
@@ -88,6 +100,7 @@ const CreateProject = () => {
           handleChange={(e) => handleFormFieldChange("description", e)}
         />
         <div className="flex flex-wrap gap-[40px]">
+          {/* Founder goal to raise the ETH */}
           <FormField
             labelName="Goal *"
             placeholder="ETH 0.50"
@@ -95,6 +108,8 @@ const CreateProject = () => {
             value={form.target}
             handleChange={(e) => handleFormFieldChange("target", e)}
           />
+
+          {/* Last date of investment */}
           <FormField
             labelName="End Date *"
             placeholder="End Date"
@@ -105,6 +120,7 @@ const CreateProject = () => {
         </div>
 
         <div className="flex justify-center items-center mt-[40px]">
+          {/* If metamask is connected, then let founder submit detail to blockchain */}
           {address && (
             <CustomButton
               btnType="submit"
@@ -112,6 +128,7 @@ const CreateProject = () => {
               styles="bg-[#8c6dfd]"
             />
           )}
+          {/* If metamask is not connected, then ask user/founder to connect with metamask */}
           {!address && (
             <CustomButton
               btnType="button"
