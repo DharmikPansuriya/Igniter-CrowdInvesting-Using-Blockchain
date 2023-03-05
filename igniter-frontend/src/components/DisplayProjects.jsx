@@ -7,12 +7,14 @@ import { loader } from "../assets";
 const DisplayProjects = ({ title, isLoading, projects }) => {
   const navigate = useNavigate();
 
+  // handleNavigate function to navigate to project details page
   const handleNavigate = (project) => {
     navigate(`/project-details/${project.title}`, { state: project });
   };
 
   return (
     <div>
+      {/* Welcome message for Dashboard section */}
       {title === "Live Projects" && (
         <div className="flex flex-col justify-left items-left my-[80px]">
           <div>
@@ -30,6 +32,7 @@ const DisplayProjects = ({ title, isLoading, projects }) => {
         </div>
       )}
 
+      {/* Title and project count */}
       <h1 className="flex flex-row items-center font-epilogue font-semibold text-[18px] text-white text-left">
         <div
           className={`ml-0 mr-3 w-[10px] h-[10px] 
@@ -47,7 +50,9 @@ const DisplayProjects = ({ title, isLoading, projects }) => {
         {title} ({projects.length})
       </h1>
 
+      {/* Project cards */}
       <div className="flex flex-wrap mt-[20px] mb-[100px] gap-[26px]">
+        {/* Loader when projects are loading */}
         {isLoading && (
           <img
             src={loader}
@@ -56,12 +61,14 @@ const DisplayProjects = ({ title, isLoading, projects }) => {
           />
         )}
 
+        {/* Message when there are no projects */}
         {!isLoading && projects.length === 0 && (
           <p className="font-epilogue font-semibold text-[14px] leading-[30px] text-[#818183]">
             You have not created any project yet
           </p>
         )}
 
+        {/* Display project cards when projects are available */}
         {!isLoading &&
           projects.length > 0 &&
           projects.map((project) => (

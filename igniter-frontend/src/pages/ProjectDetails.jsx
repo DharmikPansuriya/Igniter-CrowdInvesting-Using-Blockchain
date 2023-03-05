@@ -1,33 +1,41 @@
 import React, { useState, useEffect } from "react";
 import { useLocation, useNavigate } from "react-router-dom";
-import { ethers } from "ethers";
-
+// Importing the custom context hook
 import { useStateContext } from "../context";
 import { CountBox, CustomButton, Loader } from "../components";
 import { calculateBarPercentage, daysLeft } from "../utils";
 import { igniterFavicon } from "../assets";
 
 const ProjectDetails = () => {
+  // Use the useLocation hook to get the state passed in from the previous page
   const { state } = useLocation();
+
+  // Use the useNavigate hook to navigate to different pages
   const navigate = useNavigate();
+
+  // Use the useStateContext hook to access the contract and address
   const { invest, getInvestments, contract, address } = useStateContext();
 
+  // Use state to keep track of loading state, user input, and list of investors
   const [isLoading, setIsLoading] = useState(false);
   const [amount, setAmount] = useState("");
   const [investors, setInvestors] = useState([]);
 
+  // Calculate the number of days remaining until the project deadline
   const remainingDays = daysLeft(state.deadline);
 
+  // Fetch the list of investors for the current project
   const fetchInvestors = async () => {
     const data = await getInvestments(state.pId);
-
     setInvestors(data);
   };
 
+  // Use useEffect to fetch the investors when the contract or address changes
   useEffect(() => {
     if (contract) fetchInvestors();
   }, [contract, address]);
 
+  // Handle user investment
   const handleInvest = async () => {
     setIsLoading(true);
 
@@ -60,9 +68,11 @@ const ProjectDetails = () => {
         </div>
 
         <div className="flex md:w-[150px] w-full flex-wrap justify-between gap-[30px]">
+          {/* If Project is still live */}
           {remainingDays > 0 ? (
             <CountBox title="Days Left" value={remainingDays} />
           ) : (
+            // If project is archived
             <CountBox title="Days Ago" value={remainingDays * -1} />
           )}
           {remainingDays > 0 ? (
@@ -154,40 +164,42 @@ const ProjectDetails = () => {
           </div>
         </div>
 
-        {remainingDays > 0 && (<div className="flex-1">
-          <h4 className="font-epilogue font-semibold text-[18px] text-white uppercase">
-            Invest
-          </h4>
+        {remainingDays > 0 && (
+          <div className="flex-1">
+            <h4 className="font-epilogue font-semibold text-[18px] text-white uppercase">
+              Invest
+            </h4>
 
-          <div className="mt-[20px] flex flex-col p-4 bg-[#1c1c24] rounded-[10px]">
-            <p className="font-epilogue fount-medium text-[20px] leading-[30px] text-center text-white">
-              Invest in the project
-            </p>
-            <div className="mt-[30px]">
-              <input
-                type="number"
-                placeholder="ETH 0.1"
-                step="0.01"
-                className="w-full py-[10px] sm:px-[20px] px-[15px] outline-none border-[1px] border-[#3a3a43] bg-transparent font-epilogue text-white text-[18px] leading-[30px] placeholder:text-[#4b5264] rounded-[10px]"
-                value={amount}
-                onChange={(e) => setAmount(e.target.value)}
-              />
+            <div className="mt-[20px] flex flex-col p-4 bg-[#1c1c24] rounded-[10px]">
+              <p className="font-epilogue fount-medium text-[20px] leading-[30px] text-center text-white">
+                Invest in the project
+              </p>
+              <div className="mt-[30px]">
+                <input
+                  type="number"
+                  placeholder="ETH 0.1"
+                  step="0.01"
+                  className="w-full py-[10px] sm:px-[20px] px-[15px] outline-none border-[1px] border-[#3a3a43] bg-transparent font-epilogue text-white text-[18px] leading-[30px] placeholder:text-[#4b5264] rounded-[10px]"
+                  value={amount}
+                  onChange={(e) => setAmount(e.target.value)}
+                />
 
-              <div className="my-[20px] p-4 bg-[#13131a] rounded-[10px]">
-                <h4 className="font-epilogue font-semibold text-[14px] leading-[22px] text-white">
-                  Note: Coin will be debited from connected metamask wallet.
-                </h4>
+                <div className="my-[20px] p-4 bg-[#13131a] rounded-[10px]">
+                  <h4 className="font-epilogue font-semibold text-[14px] leading-[22px] text-white">
+                    Note: Coin will be debited from connected metamask wallet.
+                  </h4>
+                </div>
+
+                <CustomButton
+                  btnType="button"
+                  title="Make the transaction"
+                  styles="w-full bg-[#8c6dfd]"
+                  handleClick={handleInvest}
+                />
               </div>
-
-              <CustomButton
-                btnType="button"
-                title="Make the transaction"
-                styles="w-full bg-[#8c6dfd]"
-                handleClick={handleInvest}
-              />
             </div>
           </div>
-        </div>)}
+        )}
       </div>
     </div>
   );

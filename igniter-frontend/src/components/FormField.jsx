@@ -15,6 +15,8 @@ const FormField = ({
           {labelName}
         </span>
       )}
+
+      {/* If isTextArea is true, display a textarea input, otherwise display a regular input */}
       {isTextArea ? (
         <textarea
           required
