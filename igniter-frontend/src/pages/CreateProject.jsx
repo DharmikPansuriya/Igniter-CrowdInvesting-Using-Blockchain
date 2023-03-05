@@ -10,7 +10,7 @@ import { checkIfImage } from "../utils";
 const CreateProject = () => {
   const navigate = useNavigate();
   const [isLoading, setIsLoading] = useState(false);
-  const { createProject } = useStateContext();
+  const { createProject, address, connect } = useStateContext();
   const [form, setForm] = useState({
     name: "",
     title: "",
@@ -105,11 +105,23 @@ const CreateProject = () => {
         </div>
 
         <div className="flex justify-center items-center mt-[40px]">
-          <CustomButton
-            btnType="submit"
-            title="Submit "
-            styles="bg-[#8c6dfd]"
-          />
+          {address && (
+            <CustomButton
+              btnType="submit"
+              title="Submit "
+              styles="bg-[#8c6dfd]"
+            />
+          )}
+          {!address && (
+            <CustomButton
+              btnType="button"
+              title="Click here to connect metamask wallet to submit proposal"
+              styles="bg-[#8c6dfd]"
+              handleClick={() => {
+                connect();
+              }}
+            />
+          )}
         </div>
       </form>
     </div>
