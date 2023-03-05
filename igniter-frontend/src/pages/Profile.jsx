@@ -23,16 +23,21 @@ const Profile = () => {
 
   // Filter user's projects into live and archived
   const filterLiveAndArchivedProjects = (data) => {
+    // Create arrays to store archived and live projects
     const archivedProjectsArray = [];
     const liveProjectsArray = [];
-    console.log(data);
+    // Loop through each project and check if the deadline has passed or not;
     data.forEach((project) => {
+      // If deadline has passed, push project into archived
       if (project.deadline < Date.now()) {
         archivedProjectsArray.push(project);
-      } else {
+      }
+      // If deadline has not passed, push project into live projects
+      else {
         liveProjectsArray.push(project);
       }
     });
+    // Set state variables for live and archived projects using the arrays
     setLiveProjects(liveProjectsArray);
     setArchivedProjects(archivedProjectsArray);
   };

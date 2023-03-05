@@ -15,8 +15,10 @@ const Dashboard = () => {
   // This function will fetch the projects from blockchain using context/index.jsx file
   const fetchProjects = async () => {
     setIsLoading(true);
+    // Get the data using the getProjects function from the context
     const data = await getProjects();
-    if (data){
+    // If data is not empty, filter the projects into live and archived
+    if (data) {
       filterLiveAndArchivedProjects(data);
     }
     setIsLoading(false);
@@ -26,14 +28,18 @@ const Dashboard = () => {
   const filterLiveAndArchivedProjects = (data) => {
     const archivedProjectsArray = [];
     const liveProjectsArray = [];
+    // Loop through each project and check if it is live or archived
     data.forEach((project) => {
+      // If the project's deadline is before the current time, it is archived
       if (project.deadline < Date.now()) {
         archivedProjectsArray.push(project);
       }
-      else{
-        liveProjectsArray.push(project)
+      // Otherwise, it is live
+      else {
+        liveProjectsArray.push(project);
       }
     });
+    // Set the state variables to the filtered arrays
     setLiveProjects(liveProjectsArray);
     setArchivedProjects(archivedProjectsArray);
   };

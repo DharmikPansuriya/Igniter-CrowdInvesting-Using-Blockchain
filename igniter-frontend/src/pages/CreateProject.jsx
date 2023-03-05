@@ -1,12 +1,16 @@
 import React, { useState } from "react";
 import { useNavigate } from "react-router-dom";
+// Importing ethers library for interacting with Ethereum smart contracts
 import { ethers } from "ethers";
+// Importing custom hook to access global state using context
 import { useStateContext } from "../context";
+// Importing custom UI components
 import { CustomButton, FormField, Loader } from "../components";
+// Importing helper function to check if image URL is valid
 import { checkIfImage } from "../utils";
 
 const CreateProject = () => {
-  // Below  hook is used for navigation
+  // Initializing hooks to manage state
   const navigate = useNavigate();
   const [isLoading, setIsLoading] = useState(false);
   const { createProject, address, connect } = useStateContext();
@@ -33,13 +37,15 @@ const CreateProject = () => {
       // If valid then  process the request
       if (exists) {
         setIsLoading(true);
+        // Creating a project by passing form data to the createProject function
         await createProject({
           ...form,
           target: ethers.utils.parseUnits(form.target, 18),
         });
         setIsLoading(false);
+        // Navigate back to the home page after successful submission
         navigate("/");
-      } 
+      }
       // If not valid then give alert message
       else {
         alert("Provide valid image URL");
@@ -49,7 +55,7 @@ const CreateProject = () => {
   };
 
   return (
-    // Main div tag
+    // Main container for the form
     <div className="bg-[#1c1c24] flex justify-center items-center flex-col rounded-[10px] py-20 sm:p-100 p-40">
       {isLoading && <Loader />}
       {/* This will create title in top of the form */}

@@ -1,7 +1,6 @@
 import React, { useState, useEffect } from "react";
 import { useLocation, useNavigate } from "react-router-dom";
-import { ethers } from "ethers";
-
+// Importing the custom context hook
 import { useStateContext } from "../context";
 import { CountBox, CustomButton, Loader } from "../components";
 import { calculateBarPercentage, daysLeft } from "../utils";
@@ -69,9 +68,11 @@ const ProjectDetails = () => {
         </div>
 
         <div className="flex md:w-[150px] w-full flex-wrap justify-between gap-[30px]">
+          {/* If Project is still live */}
           {remainingDays > 0 ? (
             <CountBox title="Days Left" value={remainingDays} />
           ) : (
+            // If project is archived
             <CountBox title="Days Ago" value={remainingDays * -1} />
           )}
           {remainingDays > 0 ? (
