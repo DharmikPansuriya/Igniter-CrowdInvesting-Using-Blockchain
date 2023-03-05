@@ -4,35 +4,14 @@ import { Link, useNavigate } from "react-router-dom";
 import { useStateContext } from "../context";
 import { CustomButton } from "./";
 
-const Icon = ({ styles, name, imgUrl, isActive, disabled, handleClick }) => (
-  <div
-    className={`w-[48px] h-[48px] rounded-[10px] ${
-      isActive && isActive === name && "bg-[#8c6dfd]"
-    } flex justify-center items-center ${
-      !disabled && "cursor-pointer"
-    } ${styles}`}
-    onClick={handleClick}
-  >
-    {!isActive ? (
-      <img src={imgUrl} alt="fund_logo" className="w-1/2 h-1/2 bg-[#8c6dfd]" />
-    ) : (
-      <img
-        src={imgUrl}
-        alt="fund_logo"
-        className={`w-1/2 h-1/2  bg-[#8c6dfd] ${
-          isActive !== name && "grayscale"
-        }`}
-      />
-    )}
-  </div>
-);
-
+// This is master navbar used throughout the website
 const Navbar = () => {
   const navigate = useNavigate();
   const { connect, address, disconnectWallet } = useStateContext();
 
   return (
     <div className="flex md:flex-row flex-col align-center items-center justify-between mb-[35px] gap-6">
+      {/* Add Website title in top left */}
       <div className="flex justify-center flex-row">
         <Link to="/">
           <p className="font-epilogue font-extrabold align-center items-center text-[24px] text-[#8c6dfd] break-all">
@@ -41,6 +20,7 @@ const Navbar = () => {
         </Link>
       </div>
 
+      {/* Show create project buttno if user has connected the metamask */}
       <div className="flex flex-row justify-center gap-6">
         {address && (<div className="flex flex-row justify-center">
           <CustomButton
@@ -52,6 +32,8 @@ const Navbar = () => {
             }}
           />
         </div>)}
+
+        {/* Show Connect/Disconnect Metamask button */}
         <div className="flex flex-row justify-center">
           <CustomButton
             btnType="button"
