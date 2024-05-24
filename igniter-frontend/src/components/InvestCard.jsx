@@ -1,6 +1,6 @@
 import React from "react";
 
-import { tagType, igniterFavicon } from "../assets";
+import { igniterFavicon } from "../assets";
 import { daysLeft } from "../utils";
 
 const InvestCard = ({
