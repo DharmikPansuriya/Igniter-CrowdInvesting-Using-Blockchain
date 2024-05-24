@@ -34,6 +34,7 @@ const Navbar = () => {
         </div>)}
 
         {/* Show Connect/Disconnect Metamask button */}
+        {console.log("37address", address)}
         <div className="flex flex-row justify-center">
           <CustomButton
             btnType="button"

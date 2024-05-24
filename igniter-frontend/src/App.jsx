@@ -2,9 +2,13 @@ import React from "react";
 import { Route, Routes } from "react-router-dom";
 import { ProjectDetails, CreateProject, Dashboard, Profile } from "./pages";
 import { Navbar, FloatingButton } from "./components";
+import { QueryClient, QueryClientProvider, useQuery } from '@tanstack/react-query'
 
+const queryClient = new QueryClient()
 const App = () => {
   return (
+    // <QueryClientProvider client={queryClient}>
+      
     <div className="relative sm:-8 py-6 bg-[#13131a] min-h-screen px-5">
       <div className="flex-1 max-sm:w-full max-w-[1280px] mx-auto">
         <Navbar />
@@ -19,6 +23,7 @@ const App = () => {
         </Routes>
       </div>
     </div>
+    // </QueryClientProvider>
   );
 };
 

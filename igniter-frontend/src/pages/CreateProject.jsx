@@ -32,16 +32,21 @@ const CreateProject = () => {
   const handleSubmit = async (e) => {
     e.preventDefault();
 
+    console.log("handleSubmit", e)
+
     // Check if image url is valid or not
     checkIfImage(form.image, async (exists) => {
       // If valid then  process the request
+      console.log("exist", exists)
       if (exists) {
         setIsLoading(true);
         // Creating a project by passing form data to the createProject function
+        console.log("Goinf for creating")
         await createProject({
           ...form,
           target: ethers.utils.parseUnits(form.target, 18),
         });
+        console.log("Came out from createProject")
         setIsLoading(false);
         // Navigate back to the home page after successful submission
         navigate("/");
