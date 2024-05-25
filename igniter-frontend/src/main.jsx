@@ -13,7 +13,7 @@ const queryClient = new QueryClient();
 root.render(
     <QueryClientProvider client={queryClient}>
 
-    <ThirdwebProvider ChainId={11155111}>
+    <ThirdwebProvider activeChain={'sepolia'} clientId='657a36c79b20a4b2b861d604e4a319d3'>
         <Router>
             <StateContextProvider>
                 <App />

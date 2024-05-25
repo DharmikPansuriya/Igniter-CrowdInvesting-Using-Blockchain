@@ -8,9 +8,13 @@ import { useStateContext } from "../context";
 import { CustomButton, FormField, Loader } from "../components";
 // Importing helper function to check if image URL is valid
 import { checkIfImage } from "../utils";
+import { TransactionButton, useActiveAccount} from "thirdweb/react"
+import { prepareContractCall,resolveMethod } from "thirdweb";
+import {contract} from "../constants/index"
 
 const CreateProject = () => {
   // Initializing hooks to manage state
+  const account = useActiveAccount();
   const navigate = useNavigate();
   const [isLoading, setIsLoading] = useState(false);
   const { createProject, address, connect } = useStateContext();
@@ -132,13 +136,34 @@ const CreateProject = () => {
 
         <div className="flex justify-center items-center mt-[40px]">
           {/* If metamask is connected, then let founder submit detail to blockchain */}
-          {address && (
+          {account && (
             <CustomButton
               btnType="submit"
               title="Submit "
               styles="bg-[#8c6dfd]"
             />
           )}
+          {/* <TransactionButton
+              transaction={() => {
+                prepareContractCall({
+                  contract: contract,
+                  method: resolveMethod("createProject"),
+                  params: [
+                    address,
+                    form.title,
+                    form.description,
+                    ethers.utils.parseEther(form.target.toString()),
+                    new Date(form.deadline).getTime(),
+                    form.image,
+                  ], 
+                })
+              }}
+              onTransactionSent={() => console.log("Writing in Blockchain")}
+              onError={(e) => console.log("Error encountered", e)}
+              form={form}
+            >
+              Submit
+            </TransactionButton> */}
           {/* If metamask is not connected, then ask user/founder to connect with metamask */}
           {!address && (
             <CustomButton
