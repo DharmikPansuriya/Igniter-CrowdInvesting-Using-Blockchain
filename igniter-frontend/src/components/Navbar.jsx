@@ -3,6 +3,8 @@ import { Link, useNavigate } from "react-router-dom";
 
 import { useStateContext } from "../context";
 import { CustomButton } from "./";
+import {ConnectButton} from "thirdweb/react"
+import {client} from "../constants/index"
 
 // This is master navbar used throughout the website
 const Navbar = () => {
@@ -36,7 +38,7 @@ const Navbar = () => {
         {/* Show Connect/Disconnect Metamask button */}
         {console.log("37address", address)}
         <div className="flex flex-row justify-center">
-          <CustomButton
+          {/* <CustomButton
             btnType="button"
             title={address ? "Disconnect Metamask" : "Connect Metamask"}
             styles={address ? "bg-[#8c6dfd]" : "bg-[#8c6dfd]"}
@@ -44,7 +46,8 @@ const Navbar = () => {
               if (address) disconnectWallet();
               else connect();
             }}
-          />
+          /> */}
+          <ConnectButton client={client} />;
         </div>
       </div>
     </div>
